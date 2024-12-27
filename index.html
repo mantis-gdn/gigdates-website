@@ -41,11 +41,6 @@
         .nav a:hover {
             text-decoration: underline;
         }
-        .hit-counter {
-            margin-top: 30px;
-            font-size: 1rem;
-            color: #ffc400;
-        }
     </style>
 </head>
 <body>
@@ -60,25 +55,10 @@
             <a href="about.html">About</a>
             <a href="mailto:info@gigdates.net">Contact</a>
         </div>
-
-        <!-- Hit Counter -->
-        <div class="hit-counter">
-            <p>Visitor Count: <span id="hit-counter">Loading...</span></p>
-        </div>
     </div>
 
     <div class="footer">
         © 2024 Gigdates.net. All rights reserved.
     </div>
-
-    <!-- JavaScript for Hit Counter -->
-    <script>
-        // Simple Hit Counter using localStorage
-        document.addEventListener('DOMContentLoaded', () => {
-            const counter = localStorage.getItem('hitCounter') || 0;
-            localStorage.setItem('hitCounter', parseInt(counter) + 1);
-            document.getElementById('hit-counter').innerText = localStorage.getItem('hitCounter');
-        });
-    </script>
 </body>
 </html>
