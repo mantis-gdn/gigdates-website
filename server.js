@@ -50,6 +50,10 @@ app.get('/venues/:slug', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/html', 'venue.html'));
 });
 
+app.get('/events/:event_id', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/html', 'event.html'));
+});
+
 // 404 Fallback
 app.use((req, res) => {
     res.status(404).send('Page Not Found');
