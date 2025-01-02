@@ -45,6 +45,11 @@ app.get('/css/styles.css', (req, res) => {
 app.use('/api/events', require('./routes/events'));
 app.use('/api/venues', require('./routes/venues'));
 
+// Venue Page Route (Dynamic Slug)
+app.get('/venues/:slug', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/html', 'venue.html'));
+});
+
 // 404 Fallback
 app.use((req, res) => {
     res.status(404).send('Page Not Found');
