@@ -3,12 +3,11 @@ const router = express.Router();
 const { events } = require('../data/events');
 const { venues } = require('../data/venues'); // Import venues
 
-// Get all events with enriched venue names
 router.get('/', (req, res) => {
     if (Array.isArray(events)) {
         const enrichedEvents = events.map(event => ({
             ...event,
-            venue: venues[event.venueId]?.name || 'Unknown Venue'
+            venue: venues.find(venue => venue.id === event.venueId)?.name || 'Unknown Venue'
         }));
         res.json(enrichedEvents);
     } else {
@@ -16,23 +15,17 @@ router.get('/', (req, res) => {
     }
 });
 
-// Get details of a specific event by event_id
-router.get('/:event_id', (req, res) => {
-    const { event_id } = req.params;
-    const event = events.find(event => event.id === parseInt(event_id));
+// Get event by ID
+router.get('/:id', (req, res) => {
+    const eventId = parseInt(req.params.id); // Ensure eventId is parsed as an integer
+    const event = events.find(e => e.id === eventId);
 
-    if (!event) {
-        return res.status(404).json({ error: 'Event not found' });
+    if (event) {
+        res.json(event);
+    } else {
+        res.status(404).json({ error: 'Event not found' });
     }
-
-    // Enrich event details with venue information
-    const enrichedEvent = {
-        ...event,
-        venue: venues[event.venueId]?.name || 'Unknown Venue',
-        venueLink: venues[event.venueId]?.link || '#'
-    };
-
-    res.json(enrichedEvent);
 });
+
 
 module.exports = router;
